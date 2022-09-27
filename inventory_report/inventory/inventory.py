@@ -1,6 +1,9 @@
 import csv
+import json
 from ..reports.simple_report import SimpleReport
 from ..reports.complete_report import CompleteReport
+
+# Requisito 5 e 6
 
 
 class Inventory:
@@ -15,7 +18,13 @@ class Inventory:
     @classmethod
     def import_file(cls, file):
         lista_produtos = []
-        with open(file) as csv_file:
-            reader = csv.DictReader(csv_file)
-            lista_produtos = [row for row in reader]
-        return lista_produtos
+        if file.endswith("csv"):
+            with open(file) as csv_file:
+                reader = csv.DictReader(csv_file)
+                lista_produtos = [row for row in reader]
+            return lista_produtos
+        if file.endswith("json"):
+            with open(file) as file_json:
+                reader = json.load(file_json)
+                lista_produtos = [row for row in reader]
+                return lista_produtos
